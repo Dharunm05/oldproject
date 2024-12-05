@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Distance Estimation - Multiple Captures</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/coco-ssd"></script>
+    <style>
+        #videoElement {
+            width: 640px;
+            height: 480px;
+            border: 1px solid black;
+        }
+        .distance-info {
+            font-size: 20px;
+            color: red;
+        }
+        .fraud-alert {
+            color: red;
+            font-weight: bold;
+        }
+        .not-fraud {
+            color: green;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h2>Car Distance Estimation - Capture and Analysis</h2>
+    <video id="videoElement" autoplay></video>
+    <br>
+    <button id="captureButton">Capture</button>
+    <div id="results">
+        <p class="distance-info" id="distance1">Distance 1: Waiting for capture...</p>
+        <p class="distance-info" id="distance2">Distance 2: Waiting for capture...</p>
+        <p class="distance-info" id="distance3">Distance 3: Waiting for capture...</p>
+        <p class="distance-info" id="distance4">Distance 4: Waiting for capture...</p>
+        <p class="distance-info" id="distance5">Distance 5: Waiting for capture...</p>
+        <p class="distance-info" id="distance6">Distance 6: Waiting for capture...</p>
+    </div>
+
+    <script>
+        const videoElement = document.getElementById('videoElement');
+        const distanceElements = [
+            document.getElementById('distance1'),
+            document.getElementById('distance2'),
+            document.getElementById('distance3'),
+            document.getElementById('distance4'),
+            document.getElementById('distance5'),
+            document.getElementById('distance6')
+        ];
+        const captureButton = document.getElementById('captureButton');
+        let model;
+        const frames = [];
+        const maxFrames = 6;
+
+        // Function to open the webcam
+        async function setupCamera() {
+            const stream = await navigator.mediaDevices.getUserMedia({
+                video: { width: 640, height: 480 }
+            });
+            videoElement.srcObject = stream;
+            return new Promise((resolve) => {
+                videoElement.onloadedmetadata = () => {
+                    resolve(videoElement);
+                };
+            });
+        }
+
+        // Function to estimate the distance based on bounding box size
+        function estimateDistance(boundingBox) {
+            const boxHeight = boundingBox[3] - boundingBox[1];
+            const boxWidth = boundingBox[2] - boundingBox[0];
+            const averageSize = (boxHeight + boxWidth) / 2;
+
+            // Simple linear approximation for distance estimation
+            const distance = 1000 / averageSize; // Example calculation
+            return distance.toFixed(2); // Distance in some units (cm/inches)
+        }
+
+        // Function to detect objects in the captured frames
+        async function detectObjectsInFrame(frame, index) {
+            const predictions = await model.detect(frame);
+
+            // Filter predictions to find the car (class name: 'car')
+            const carPrediction = predictions.find(pred => pred.class === 'car');
+
+            if (carPrediction) {
+                const distance = estimateDistance(carPrediction.bbox);
+                const fraud = distance < 100;
+                distanceElements[index].textContent = Distance ${index + 1}: ${distance} units;
+                distanceElements[index].className = fraud ? 'distance-info fraud-alert' : 'distance-info not-fraud';
+                distanceElements[index].textContent += fraud ? ' - Fraud detected' : ' - Not Fraud';
+            } else {
+                distanceElements[index].textContent = Distance ${index + 1}: Car not detected;
+            }
+        }
+
+        // Function to capture frames and process distances for each
+        async function captureAndProcessFrames() {
+            // Capture frames
+            for (let i = 0; i < maxFrames; i++) {
+                const canvas = document.createElement('canvas');
+                canvas.width = videoElement.videoWidth;
+                canvas.height = videoElement.videoHeight;
+                const context = canvas.getContext('2d');
+                context.drawImage(videoElement, 0, 0, canvas.width, canvas.height);
+                frames[i] = canvas;
+            }
+
+            // Run detection for each captured frame
+            for (let i = 0; i < maxFrames; i++) {
+                detectObjectsInFrame(frames[i], i);
+            }
+        }
+
+        // Event listener for the capture button
+        captureButton.addEventListener('click', () => {
+            captureAndProcessFrames();
+        });
+
+        // Main function to start everything
+        async function main() {
+            await setupCamera();
+            model = await cocoSsd.load();
+        }
+
+        // Run the main function
+        main();
+    </script>
+</body>
+</html>

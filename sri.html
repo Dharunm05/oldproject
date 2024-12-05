@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Welcome Page</title>
+<style>
+  body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: Arial, sans-serif;
+  }
+  .container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(to bottom, #0077B5, #123456); /* Adjust the colors to match the gradient in the image */
+    padding: 20px;
+    box-sizing: border-box;
+    text-align: center;
+  }
+  .logo {
+    width: 100px; /* Adjust size as needed */
+    margin-top: 20px;
+  }
+  .title {
+    font-size: 48px; /* Adjust size as needed */
+    color: #ffffff;
+    margin: 20px 0;
+  }
+  .subtitle {
+    font-size: 18px; /* Adjust size as needed */
+    color: #ffffff;
+    margin-bottom: 40px;
+  }
+  .button {
+    background-color: #22cc88; /* Adjust color as needed */
+    color: #ffffff;
+    border: none;
+    padding: 15px 30px;
+    text-transform: uppercase;
+    font-weight: bold;
+    border-radius: 30px;
+    margin-bottom: 20px;
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <img src="C:\Users\PREMKUMAR\OneDrive\Pictures\farmai.jpg" alt="Logo" class="logo"> <!-- Replace with your actual logo source -->
+    <h1 class="title">Farm AI</h1>
+    <p class="subtitle">Revolutionize farming efficiency with our AI-powered farm management solution</p>
+    <button class="button" onclick="redirectToPage()">Get Started</button>
+    <script>
+        function redirectToPage() {
+          // Replace "https://www.example.com" with the URL of the page you want to redirect to
+          window.location.href = "new.html";
+        }
+    </script>
+  </div>
+</body>
+</html>

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Welcome Page</title>
+<style>
+  /* Global styles */
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: 'Arial', sans-serif;
+    background-color:white;
+    background: linear-gradient(to bottom, #0077B5, #123456);  
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  /* Container */
+  .container {
+    background-color: #fff;  /* White background */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    max-width: 700px; /* Adjust width as needed */
+  }
+
+  /* Header */
+  .header {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+  }
+
+  .header h1 {
+    font-size: 2em;
+    margin-bottom: 5px;
+  }
+
+  /* Card container */
+  .card-container {
+    display: flex;
+    flex-wrap: wrap;  /* Allow cards to wrap to next line */
+    justify-content: space-between;
+    margin-bottom: 20px;
+     background-image: url('C:\Users\PREMKUMAR\OneDrive\Pictures\bg.jpg');
+  }
+
+  /* Card */
+  .card {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: calc(48% - 10px); /* Adjusted width with margin */
+    text-align: center;
+    margin: 5px;  /* Add some margin between cards */
+  }
+
+  .card h2 {
+    font-size: 1.2em;
+    margin: 10px 0;
+    color: #333;
+  }
+
+  .card p {
+    color: #777;
+    line-height: 1.5;  /* Increase line spacing for readability */
+  }
+
+  /* Button */
+  .button {
+    background-color:burlywood;  /* Green color */
+    color: #fff;
+    border: none;
+    padding: 15px 20px;
+    border-radius: 10px;
+    text-transform: uppercase;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+  .button:hover {
+    background-color: #27ae60;  /* Darker green on hover */
+  }
+
+  /* Sensor data */
+  .sensor-data {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  /* Statistics */
+  .statistics {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-top: 20px;
+  }
+
+  .chart-placeholder {
+    height: 200px;
+    background-image: url('C:\Users\PREMKUMAR\OneDrive\Pictures\bg.jpg');  /* Replace with your actual chart image */
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>Welcome</h1>
+    </div>
+    <div class="card-container">
+      <div class="card">
+        <button class="button"onclick="redirectToPage()">
+        <h2>Real time data</h2>
+        </button>
+        <script>
+          function redirectToPage() {
+            // Replace "https://www.example.com" with the URL of the page you want to redirect to
+            window.location.href = "final.html";
+          }
+        </script>
+      </div>
+      <div class="card">
+        <button class="button"onclick="pest()">
+        <h2>Pest Detection</h2>
+        <script>
+          function pest() {
+            // Replace "https://www.example.com" with the URL of the page you want to redirect to
+            window.location.href = "y.html";
+          }
+        </script>
+      </div>
+    </div>
+   
+   
+    </div>
+  </div>
+</body>
+</html>

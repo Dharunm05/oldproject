@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>DHT Readings</title>
+	<style type="text/css">
+		body{
+			background-color: #F5F5F5;
+			font-family: Arial, sans-serif;
+			margin: 0;
+			padding: 0;
+		}
+		.data-container{
+			display: flex;
+			justify-content: space-between;
+			width: 50%;
+			margin: 50px auto;
+			padding: 20px;
+			background-color: #FFF;
+			box-shadow: 0 2px 20px rgba(0, 0, 0,0.1);
+			border-radius: 10px;
+		}
+
+		.data-item{
+			text-align: center;
+		}
+
+		.data-item h2{
+			font-size: 24px;
+			font-weight: bold;
+			margin-bottom: 10px;
+		}
+
+		.data-item p{
+			font-size: 48px;
+			font-weight: bold;
+			color: #6EB7FF;
+		}
+
+		.data-head{
+			margin: auto;
+			width: 50%;
+			text-align: center;
+			font-size: 45px;
+			font-weight: bold;
+			margin: 50px auto;
+			padding: 20px;
+			background-color: #FFF;
+			box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+			border-radius: 20px;
+
+
+		}
+
+
+
+	</style>
+</head>
+<body>
+
+	<div class="data-head">DHT Sensor Realtime Readings</div>
+
+	<div class="data-container">
+		<div class="data-item">
+			<h2>Temperature</h2>
+			<p class="value" id="temperature">22 &#8451;</p>
+		</div>
+		<div class="data-item">
+			<h2>Humidity</h2>
+			<p class="value" id="humidity">10%</p>
+		</div>
+
+		
+	</div>
+
+	<!-- the scripts for products you want to access must be added-->
+
+	<script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+
+	<script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-database.js"></script>
+
+
+	<script type="module">
+	  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js";
+
+     
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDWzR84_3_dTfO5iUeUJ83q7gs2UM4i6as",
+  authDomain: "bit-896e2.firebaseapp.com",
+  databaseURL: "https://bit-896e2-default-rtdb.firebaseio.com",
+  projectId: "bit-896e2",
+  storageBucket: "bit-896e2.appspot.com",
+  messagingSenderId: "1076908305972",
+  appId: "1:1076908305972:web:5dc92b12ea5da6085da461"
+};
+
+// Initialize Firebase
+
+
+
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+
+
+    // getting reference to the database
+    var database = firebase.database();
+
+    //getting reference to the data we want
+    var dataRef1 = database.ref('/moisture');
+   
+
+    //fetch the data
+    dataRef1.on('value', function(getdata1){
+      var humi = getdata1.val();
+      document.getElementById('humidity').innerHTML = humi + "%";
+    })
+
+
+
+
+
+
+
+  
+
+
+
+
+
+	</script>
+
+</body>
+</html>

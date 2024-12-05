@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Save & Load Image on Firebase Storage</title>
+</head>
+<style>
+  body,
+  html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: Arial, sans-serif;
+    background-color: white;
+  }
+
+  img {
+    height: 200px;
+    width: 200px;
+    border: 5px solid white;
+  }
+</style>
+
+<body align ="center">
+  <h1 align="center">Detected Abnormality</h1>
+  <br><br>
+  <div align ="center" id="image-container"></div><br>
+  <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-storage.js"></script>
+  <script>
+    // Replace the following with your own Firebase configuration.
+    const firebaseConfig = {
+      apiKey: "AIzaSyDCbfNAZeNHQEIfCqCaTwPa-FzO1EWzeIc",
+  authDomain: "iitm-8d97f.firebaseapp.com",
+  databaseURL: "https://iitm-8d97f-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "iitm-8d97f",
+  storageBucket: "iitm-8d97f.appspot.com",
+  messagingSenderId: "620064536039",
+  appId: "1:620064536039:web:e5b76b1ef750185c2df942"
+    };
+    firebase.initializeApp(firebaseConfig);
+
+    const storage = firebase.storage();
+    const imageRef = storage.ref('Screenshots'); // Replace 'folder-name' with your desired folder name.
+
+    imageRef.listAll().then(function(result) {
+      result.items.forEach(function(imageRef) {
+        imageRef.getDownloadURL().then(function(url) {
+          const imageContainer = document.getElementById('image-container');
+          const image = document.createElement('img');
+          image.src = url;
+          imageContainer.appendChild(image);
+        }).catch(function(error) {
+          console.log(error);
+        });
+      });
+    }).catch(function(error) {
+      console.log(error);
+    });
+  </script>
+  <h2 > Detected image</h2>
+  <img  src="C:\Users\PREMKUMAR\Downloads\WhatsApp Image 2024-04-04 at 4.04.03 PM.jpeg" alt="your image"> 
+  <h3> This disease maybe Fruit borar or blossomendrot.<br>
+    The pesticide can be used is Ema-methionine(10g/10litre) or linnified rheobor-liquid calcium boron</h3>
+
+  </p>
+</body>
+</html>
